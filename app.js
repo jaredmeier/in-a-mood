@@ -2,6 +2,7 @@ require("@babel/polyfill");
 const http = require('http');
 const https = require('https');
 const url = require('url');
+
 const language = require('@google-cloud/language');
 
 let bearer = null;
