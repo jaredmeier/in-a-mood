@@ -1,0 +1,160 @@
+:root {
+    --primary-1: whitesmoke;
+    --border-1:  #586BA4;
+    --secondary-1: salmon;
+    --header-1: black;
+
+    --primary-2: #90BAAD;
+    --border-2: #717C89;
+    --secondary-2: #ADF6B1;
+    --header-2: white;
+
+    --bg-color: var(--primary-1);
+    --border-color: var(--border-1);
+    --secondary-color: var(--secondary-1);
+    --header-color: var(--header-1);
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Merriweather', serif;
+}
+
+#root {
+    height: 100vh;
+    width: 65vw;
+    margin: 0 auto;
+    display: grid;
+    // grid-template-rows: 130px 1fr 275px 50fr;
+}
+
+h1 {
+    color: var(--header-color);
+    margin: 0;
+    font-size: 4em;
+
+}
+
+@keyframes titlecolor {
+    0% { color: var(--header-color) }
+    25% { color: #2c7bb6 }
+    50% { color: #ffff8c; }
+    75% { color: #d7191c; }
+    100% { color: var(--header-color) }
+}
+
+.title.animate {
+    animation-duration: 5s;
+    animation-name: titlecolor;
+}
+
+.title {
+    position: relative;
+    width: 360px;
+}
+
+.header-container {
+    display: flex;
+    align-items: flex-end;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header-links-container {
+    margin-left: 20px;
+    display: flex;
+    font-size: 0.8em;
+}
+
+.header-links-container .header-link {
+    padding: 0 10px;
+    border-right: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.header-links-container .header-link:last-of-type {
+    border: 0;
+}
+
+.fa-question-circle {
+    color: var(--secondary-color);
+}
+
+.color-container {
+    margin-left: auto;
+    justify-self: flex-end;
+    padding-bottom: 4px;
+}
+
+.color-picker-dot {
+    box-sizing: border-box;
+    height: 15px;
+    width: 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    display: inline-block;
+    transition: transform 0.1s;
+}
+
+.color-picker-dot:hover {
+    transition: transform 0.1s;
+    transform: scale(1.1);
+}
+
+.color-picker-dot.c-one {
+    background-color: var(--primary-1);
+}
+
+.color-picker-dot.c-two {
+    background-color: var(--primary-2);
+}
+
+#chart-container {
+    height: 100%;
+    width: 100%;
+}
+
+.chart {
+    height: 80%;
+    width: 100%;
+}
+
+.tick {
+    font-size: 1.6em;
+}
+
+.axis {
+    font-family: inherit;
+}
+
+circle.dot {
+    fill: var(--secondary-color);
+    r: 3;
+}
+
+circle.dot.mag {
+    r: 2;
+}
+
+#current-mood-container {
+    position: relative;
+    width: 100%;
+    padding-top: 50px;
+}
+
+.moodring-svg {
+    width: 100%;
+}
+
+.refresh-button {
+    position: absolute;
+}
+
