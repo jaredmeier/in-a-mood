@@ -1,9 +1,12 @@
+require("@babel/polyfill");
 const http = require('http');
 const https = require('https');
 const url = require('url');
-const { bearer } = require('./config');
 const language = require('@google-cloud/language');
-require("@babel/polyfill");
+let bearer = null;
+if (process.env.NODE_ENV !== 'production') {
+  bearer = require('./config');
+}
 
 const port = process.env.PORT || 3000;
 
@@ -23,7 +26,7 @@ function fetchTweets(res) {
       path: '/1.1/search/tweets.json?' + params,
       method: 'GET',
       headers: {
-          'Authorization': 'Bearer ' + (process.env.BEARER || bearer),
+          'Authorization': 'Bearer ' + (process.env.BEARER || bearer.bearer),
       }
   }
   let body = "";
