@@ -13,7 +13,7 @@
     "start": "npm run server",
     "webpack:watch": "webpack --watch --config webpack.dev.js",
     "webpack:build": "webpack --config webpack.prod.js  --optimize-minimize",
-    "heroku-postbuild": "npm run webpack:build"
+    "heroku-postbuild": "npm install && npm run webpack:build"
   },
   "author": "",
   "license": "ISC",
