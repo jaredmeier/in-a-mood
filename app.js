@@ -30,7 +30,7 @@ app.post('/analysis', (req, res) => {
 });
 
 app.listen(port, () => {
-  // console.log(`Listening on ${port}`);
+  console.log(`Listening on ${port}`);
 });
 
 function fetchTweets(res) {

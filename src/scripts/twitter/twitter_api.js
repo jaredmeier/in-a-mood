@@ -3,6 +3,7 @@ import HOST from '../host';
 
 export async function getTweets() {
     console.log("Requesting tweets");
+    console.log(`Process env: ${process.env}`)
     console.log(`Port: ${process.env.PORT}`);
     const options = {
         host: HOST,
