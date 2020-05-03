@@ -9,6 +9,9 @@ export async function getAnalysis (tweets) {
         port: process.env.PORT || 3000,
         path: '/analysis',
         method: 'POST',
+        headers: {
+            'Content-Type': 'text/html'
+        }  
     }
 
     return new Promise(function (resolve, reject) {

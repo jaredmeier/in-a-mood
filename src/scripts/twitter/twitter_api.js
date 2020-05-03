@@ -2,7 +2,7 @@ const http = require('http');
 import HOST from '../host';
 
 export async function getTweets() {
-    // console.log("Requesting tweets");
+    console.log("Requesting tweets");
 
     const options = {
         host: HOST,
@@ -12,10 +12,10 @@ export async function getTweets() {
 
     return new Promise(function (resolve, reject) {
         const req = http.request(options, res => {
-            // console.log(`statusCode: ${res.statusCode}`)
+            console.log(`statusCode: ${res.statusCode}`)
 
             res.on('data', tweets => {
-                // console.log(`Data received: ${tweets}`);
+                console.log(`Data received: ${tweets}`);
                 resolve(tweets);
             })
         })

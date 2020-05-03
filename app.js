@@ -1,8 +1,9 @@
 require("@babel/polyfill");
-const http = require('http');
+const express = require('express');
+const app = express();
+const path = require('path');
 const https = require('https');
-const url = require('url');
-
+const bodyParser = require('body-parser');
 const language = require('@google-cloud/language');
 
 let bearer = null;
@@ -12,13 +13,24 @@ if (process.env.NODE_ENV !== 'production') {
 
 const port = process.env.PORT || 3000;
 
-const server = http.createServer((req, res) => {
-  let path = url.parse(req.url).pathname;
-  if (path === '/tweets') {
-    fetchTweets(res);
-  } else if (path = 'analysis') {
-    fetchSentimentAnalysis(req, res);
-  }
+app.use(express.static("dist"));
+app.use(bodyParser.json());
+app.use(bodyParser.text({ type: 'text/html' }))
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, "./dist/index.html"));
+});
+
+app.get('/tweets', (req, res) => {
+  fetchTweets(res);
+});
+
+app.post('/analysis', (req, res) => {
+  fetchSentimentAnalysis(req, res);
+});
+
+app.listen(port, () => {
+  // console.log(`Listening on ${port}`);
 });
 
 function fetchTweets(res) {
@@ -42,10 +54,12 @@ function fetchTweets(res) {
 
       tweetRes.on("end", () => {
         // console.log("Sending data to client");
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Content-Type', 'application/json');
-        res.write(body);
-        res.end();
+        // res.setHeader('Access-Control-Allow-Origin', '*');
+        // res.setHeader('Content-Type', 'application/json');
+        // res.write(body);
+        // res.end();
+        // console.log(`body);
+        res.send(body);
       });
   })
 
@@ -57,32 +71,24 @@ function fetchTweets(res) {
 }
 
 function fetchSentimentAnalysis(req, res) {
-  let body = '';
-  req.on('data', (chunk) => {
-    body += chunk;
-  }).on('end', () => {
-    // console.log(`Body sent: ${body}`);
-    // console.log("Making sentiment analysis request");
-    analyzeSentiment(body).then( sentiment => {
-      // console.log(sentiment);
-      respondAnalysis(res, sentiment);
-    }).catch((error) => {
-      // console.log(error);
-    });
-  });
-
-  req.on('error', (e) => {
-    // console.error(`Error: ${e.message}`);
+  let body = req.body;
+  console.log(`Body received: ${body}`);
+  console.log("Making sentiment analysis request");
+  analyzeSentiment(body).then(sentiment => {
+    console.log(sentiment);
+    res.json(sentiment);
+  }).catch((error) => {
+    console.log(error);
   });
 }
 
-function respondAnalysis(res, sentiment) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Content-Type', 'application/json');  
-  const sentimentResponse = JSON.stringify(sentiment);
-  res.write(sentimentResponse);
-  res.end();
-}
+// function respondAnalysis(res, sentiment) {
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//   res.setHeader('Content-Type', 'application/json');  
+//   const sentimentResponse = JSON.stringify(sentiment);
+//   res.write(sentimentResponse);
+//   res.end();
+// }
 
 async function analyzeSentiment(tweets) {
   const client = new language.LanguageServiceClient();
@@ -92,18 +98,13 @@ async function analyzeSentiment(tweets) {
     type: 'PLAIN_TEXT',
   };
 
-  // console.log(`Fetching sentiment for ${tweets}`);
+  console.log(`Fetching sentiment for ${tweets}`);
   // Detects the sentiment of the text
   const [result] = await client.analyzeSentiment({ document: document });
   const sentiment = result.documentSentiment;
 
-  // console.log(`Sentiment score: ${sentiment.score}`);
-  // console.log(`Sentiment magnitude: ${sentiment.magnitude}`);
+  console.log(`Sentiment score: ${sentiment.score}`);
+  console.log(`Sentiment magnitude: ${sentiment.magnitude}`);
 
   return sentiment;
 }
-
-
-server.listen(port, () => {
-  // console.log(`Listening on ${port}`);
-});

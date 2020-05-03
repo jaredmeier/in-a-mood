@@ -1,3 +1,5 @@
+const path = require('path');
+
 class CurrentMood {
     constructor() {
         this.score = -4;
@@ -159,7 +161,7 @@ class CurrentMood {
             .attr("y", 0)
             .attr("width", this.ringSize)
             .attr("height", this.ringSize)
-            .attr("xlink:href", "./src/img/moodring.svg")
+            .attr("xlink:href", path.join(__dirname, "./moodring.svg"))
 
         const moodLegend = moodRingGroup.append("rect")
             .attr("x", -50)
