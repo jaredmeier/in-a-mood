@@ -35,6 +35,7 @@ app.listen(port, () => {
 
 function fetchTweets(res) {
   params = "geocode=40.7128,-74.0060,2mi&count=15&tweet_mode=extended";
+  console.log(process.env.BEARER);
   const options = {
       host: 'api.twitter.com',
       path: '/1.1/search/tweets.json?' + params,
