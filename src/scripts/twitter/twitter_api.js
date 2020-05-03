@@ -7,7 +7,6 @@ export async function getTweets() {
     console.log(`Port: ${process.env.PORT}`);
     const options = {
         host: HOST,
-        port: process.env.PORT || 3000,
         path: '/tweets',
     }
 

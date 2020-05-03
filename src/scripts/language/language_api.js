@@ -6,7 +6,6 @@ export async function getAnalysis (tweets) {
 
     const options = {
         host: HOST,
-        port: process.env.PORT || 3000,
         path: '/analysis',
         method: 'POST',
         headers: {
