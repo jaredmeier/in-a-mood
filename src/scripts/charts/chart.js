@@ -77,6 +77,22 @@ export const createChart = () => {
     svg.append("path")
         .datum(sentimentData)
         .attr("fill", "none")
+        .attr("stroke", "gray")
+        .attr("stroke-width", 2)
+        .attr("stroke-linejoin", "round")
+        .attr("stroke-linecap", "round")
+        .attr("d", magLine);
+
+    svg.selectAll(".dot-mag")
+        .data(sentimentData)
+        .enter().append("circle")
+        .attr("class", "dot-mag")
+        .attr("cx", d => x(d.date))
+        .attr("cy", d => magY(d.magnitude))
+
+    svg.append("path")
+        .datum(sentimentData)
+        .attr("fill", "none")
         .attr("stroke", "steelblue")
         .attr("stroke-width", 4)
         .attr("stroke-linejoin", "round")
@@ -89,22 +105,6 @@ export const createChart = () => {
         .attr("class", "dot")
         .attr("cx", d => x(d.date))
         .attr("cy", d =>  y(d.score))
-
-    svg.append("path")
-        .datum(sentimentData)
-        .attr("fill", "none")
-        .attr("stroke", "steelblue")
-        .attr("stroke-width", 2)
-        .attr("stroke-linejoin", "round")
-        .attr("stroke-linecap", "round")
-        .attr("d", magLine);
-
-    svg.selectAll(".dotMag")
-        .data(sentimentData)
-        .enter().append("circle")
-        .attr("class", "dot mag")
-        .attr("cx", d => x(d.date))
-        .attr("cy", d => magY(d.magnitude))
 
     svg.append("g")
         .call(xAxis);

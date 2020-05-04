@@ -54,12 +54,6 @@ function fetchTweets(res) {
       })
 
       tweetRes.on("end", () => {
-        // console.log("Sending data to client");
-        // res.setHeader('Access-Control-Allow-Origin', '*');
-        // res.setHeader('Content-Type', 'application/json');
-        // res.write(body);
-        // res.end();
-        // console.log(`body);
         res.send(body);
       });
   })
@@ -82,14 +76,6 @@ function fetchSentimentAnalysis(req, res) {
     console.log(error);
   });
 }
-
-// function respondAnalysis(res, sentiment) {
-//   res.setHeader('Access-Control-Allow-Origin', '*');
-//   res.setHeader('Content-Type', 'application/json');  
-//   const sentimentResponse = JSON.stringify(sentiment);
-//   res.write(sentimentResponse);
-//   res.end();
-// }
 
 async function analyzeSentiment(tweets) {
   const client = new language.LanguageServiceClient();

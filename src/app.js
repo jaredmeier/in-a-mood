@@ -13,11 +13,10 @@ class App {
         title.classList.add("animate");
         title.addEventListener("animationend", () => this.titleAnimationEnd());
 
-        document.addEventListener('click', (event) => {
-            if (!event.target.matches('.get-tweets')) return;
+        document.querySelector('.refresh-mood').addEventListener('click', () => {
             event.preventDefault();
             this.getCurrentMood();
-        });
+        })
 
         document.querySelectorAll('.color-picker-button').forEach(button => {
             button.addEventListener('click', this.changeTheme);
@@ -30,13 +29,13 @@ class App {
     }
 
     async getCurrentMood() {
-        this.updateMoodMessage("Grabbing latest Tweets...");
+        this.updateMoodMessage("grabbing latest tweets...");
         const tweets = await getTweets();
         const preppedTweets = prepTweetsForLang(tweets);
-        this.updateMoodMessage("Analyzing Tweets...");
+        this.updateMoodMessage("analyzing tweets...");
         const {score, magnitude} = await getAnalysis(preppedTweets);
         this.mood.updateScore(score);
-        this.mood.updateMessage('');
+        this.mood.updateMessage(`mood rating:\n${score.toFixed(3)}`);
     }
 
     updateMoodMessage(text) {

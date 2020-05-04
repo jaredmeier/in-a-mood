@@ -3,7 +3,7 @@ const path = require('path');
 class CurrentMood {
     constructor() {
         this.score = -4;
-        this.messageText = 'Status message here';
+        this.messageText = '';
         this.drawAll();
     }
 
@@ -23,7 +23,7 @@ class CurrentMood {
     }
 
     drawAll() {
-        d3.select("#current-mood-container > *")
+        d3.selectAll("#current-mood-container > .moodring-svg")
             .remove()
 
         this.svg = d3.select("#current-mood-container")
@@ -97,11 +97,9 @@ class CurrentMood {
             .append("text")
             .attr("x", 0)
             .attr("y", 0)
-            .attr("font-size", "20px")
+            .attr("font-size", "25px")
             .attr("text-anchor", "middle")
             .text(this.messageText)
-
-        // const refresh = 
     }
 
     drawMoodRingGem() {

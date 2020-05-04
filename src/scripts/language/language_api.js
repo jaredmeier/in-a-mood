@@ -13,6 +13,10 @@ export async function getAnalysis (tweets) {
         }  
     }
 
+    if (process.env.NODE_ENV !== "production") {
+        options.port = 3000;
+    }
+
     return new Promise(function (resolve, reject) {
         const req = http.request(options, res => {
             // console.log(`statusCode: ${res.statusCode}`)
