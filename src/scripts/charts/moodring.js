@@ -178,15 +178,56 @@ class CurrentMood {
             .append("rect")
             .attr("x", -50)
             .attr("y", 45)
+            .attr("rx", 15)
+            .attr("ry", 15)
             .attr("width", 30)
             .attr("height", 400)
             .style("fill", "url(#grad1)");
+
+        const emojiPos = moodRingGroup.selectAll(".mood-icon-pos")
+            .data([this.score])
+            .enter()
+            .append("image")
+            .attr("class", "mood-icon-pos");
+
+        emojiPos
+            .attr("x", -50)
+            .attr("y", 44)
+            .attr("width", 30)
+            .attr("height", 30)
+            .attr("xlink:href", path.join(__dirname, "./grin-beam-regular.svg"))
+
+        const emojiNeutral = moodRingGroup.selectAll(".mood-icon-neutral")
+            .data([this.score])
+            .enter()
+            .append("image")
+            .attr("class", "mood-icon-neutral");
+
+        emojiNeutral
+            .attr("x", -50)
+            .attr("y", 228)
+            .attr("width", 30)
+            .attr("height", 30)
+            .attr("xlink:href", path.join(__dirname, "./meh-regular.svg"))
+
+        const emojiNeg = moodRingGroup.selectAll(".mood-icon-neg")
+            .data([this.score])
+            .enter()
+            .append("image")
+            .attr("class", "mood-icon-neg");
+
+        emojiNeg
+            .attr("x", -50)
+            .attr("y", 415)
+            .attr("width", 30)
+            .attr("height", 30)
+            .attr("xlink:href", path.join(__dirname, "./frown-regular.svg"))
 
         const indicatorInterpolator = d3.scaleLinear()
             .domain([1, -1])
             .range([47, 445])
 
-        const trianglePath = "M -68 " + (indicatorInterpolator(this.score) - 7) + " l 14 6 l -14 6 z "
+        const trianglePath = "M -68 " + (indicatorInterpolator(this.score) - 7) + " l 10 6 l -10 6 z "
 
         moodRingGroup.selectAll(".indicator")
             .data([this.score])

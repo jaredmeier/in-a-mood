@@ -43,7 +43,7 @@ class App {
         window.addEventListener('resize', () => this.updateSizes());
 
         this.mood = new CurrentMood();
-        createChart();
+        // createChart();
     }
 
     toggleModal() {
@@ -65,8 +65,30 @@ class App {
         this.updateMoodMessage("analyzing tweets...");
         const {score, magnitude} = await getAnalysis(preppedTweets);
         this.mood.updateScore(score);
-        this.mood.updateMessage(`mood rating:\n${score.toFixed(2)}`);
+        // this.mood.updateMessage(`mood rating:\n${score.toFixed(2)}`);
+        this.mood.updateMessage(this.convertScoreToText(score));
         this.stopAnimateLoading();
+    }
+
+    convertScoreToText(score) {
+        let string = "feeling ";
+        if (score > 0.8) {
+            string += "great!";
+        } else if (score > 0.4) {
+            string += "pretty good";
+        } else if (score > 0.1) {
+            string += "not bad";
+        } else if (score > -0.1) {
+            string += "nothing at all";
+        } else if (score > -0.4) {
+            string += "not great";
+        } else if (score > -0.8) {
+            string += "pretty bad";
+        } else {
+            string += "terrible!";
+        }
+
+        return string;
     }
 
     animateLoading() {

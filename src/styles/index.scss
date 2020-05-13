@@ -200,22 +200,8 @@ h3 {
     animation-name: handbounce;
 }
 
-.mood-icon-pos {
-    position: absolute;
-    left: -0.2%;
-    top: 10%;
-    font-size: 1vw;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-}
-
-.mood-icon-neutral {
-
-}
-
-.mood-icon-neg {
-
+[class^="mood-icon"] {
+    filter: invert(0.5);
 }
 
 #chart-container {
