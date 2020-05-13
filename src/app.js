@@ -8,7 +8,7 @@ import CurrentMood from './scripts/charts/moodring';
 class App {
     constructor() {
         this.mood = null;
-
+        this.modal = false;
         const title = document.getElementsByClassName("title")[0];
         title.classList.add("animate");
         title.addEventListener("animationend", () => this.titleAnimationEnd());
@@ -22,20 +22,66 @@ class App {
             button.addEventListener('click', this.changeTheme);
         })
 
+        document.querySelector('.about-button').addEventListener('click', () => {
+            this.toggleModal();
+        })
+
+        document.querySelector('.close-modal').addEventListener('click', () => {
+            this.toggleModal();
+        })
+
+        document.querySelector('.modal-child').addEventListener('click', () => {
+            console.log("Stopping event bubbling");
+            event.stopPropagation();
+        })
+
+        document.querySelector('.modal-background').addEventListener('click', () => {
+            console.log("Toggling modal");
+            this.toggleModal();
+        })
+
         window.addEventListener('resize', () => this.updateSizes());
 
         this.mood = new CurrentMood();
         createChart();
     }
 
+    toggleModal() {
+        let modalEle = document.querySelector('.modal-background');
+        if (this.modal) {
+            this.modal = false;
+            modalEle.classList.add("hidden");
+        } else {
+            this.modal = true;
+            modalEle.classList.remove("hidden");
+        }
+    }
+
     async getCurrentMood() {
+        this.animateLoading();
         this.updateMoodMessage("grabbing latest tweets...");
         const tweets = await getTweets();
         const preppedTweets = prepTweetsForLang(tweets);
         this.updateMoodMessage("analyzing tweets...");
         const {score, magnitude} = await getAnalysis(preppedTweets);
         this.mood.updateScore(score);
-        this.mood.updateMessage(`mood rating:\n${score.toFixed(3)}`);
+        this.mood.updateMessage(`mood rating:\n${score.toFixed(2)}`);
+        this.stopAnimateLoading();
+    }
+
+    animateLoading() {
+        let refreshIcon = document.querySelector('.refresh-icon');
+        let hand = document.querySelector('.refresh-hand');
+        if (hand) {
+            hand.remove();
+            refreshIcon.classList.remove('animate');
+        }
+        refreshIcon.classList.add('animate-loading');
+    }
+
+    stopAnimateLoading() {
+        let refreshIcon = document.querySelector('.refresh-icon');
+        refreshIcon.classList.remove('animate-loading');
     }
 
     updateMoodMessage(text) {

@@ -2,7 +2,7 @@ const path = require('path');
 
 class CurrentMood {
     constructor() {
-        this.score = -4;
+        this.score = 0;
         this.messageText = '';
         this.drawAll();
     }
@@ -103,18 +103,14 @@ class CurrentMood {
     }
 
     drawMoodRingGem() {
-        d3.selectAll(".moodring-svg > .moodgem").transition().duration(2000).remove();
-        d3.selectAll(".moodring-svg > .moodring").remove();
-        d3.selectAll("#grad2").remove();
-        // console.log(`Mood score: ${this.score}`)
+        this.svg.selectAll(".mood-ring-group")
+            .data([this.score])
+            .enter().append("g")
+            .attr("class", "mood-ring-group")
+            .attr("transform", "translate(70,-35)")
 
         const moodRingGroup = this.svg
-            .append("g")
-            .attr("transform", "translate(50,-50)")
-        
-        const moodGem = moodRingGroup
-            .append("ellipse")
-            .attr("class", "moodgem")
+            .selectAll(".mood-ring-group")
 
         // create a special gradient for moodring based on value's gradient
         const randomColor = this.colorScale(this.colorInterpolate(this.ran()));
@@ -125,32 +121,47 @@ class CurrentMood {
             { "color": randomColor, "stop": "100%" },
         ];
 
-        const gemGradient = this.defs.append("radialGradient")
-            .attr("id", "grad2");
-
-        gemGradient
+        this.defs.selectAll("#grad2")
+            .data([this.score])
+            .enter().append("radialGradient")
+            .attr("id", "grad2")
             .attr("x1", "10%")
             .attr("y1", "0%")
             .attr("x2", "100%")
             .attr("y2", "100%")
 
+        const gemGradient = this.defs.selectAll("#grad2");
+
         gemGradient.selectAll("stop")
             .data(gemColors)
             .enter().append("stop")
+            .attr("class", "grad2-stop")
             .attr("offset", d => d.stop)
             .attr("stop-color", d => d.color);
 
-        moodGem
+        this.svg.selectAll(".grad2-stop")
+            .data(gemColors)
+            .transition()
+            .duration(2000)
+            .attr("offset", d => d.stop)
+            .attr("stop-color", d => d.color);
+
+        moodRingGroup.selectAll(".moodgem")
+            .data([this.score])
+            .enter().append("ellipse")
+            .attr("class", "moodgem")
             .attr("cx", 215)
             .attr("cy", 352)
             .attr("rx", this.ringSize / 5.3)
             .attr("ry", this.ringSize / 3.7)
             .attr("transform", "rotate(-22 0 0)")
             .style("fill", "url(#grad2)")
-            .style("filter", "url(#glow)");
+            .style("filter", "url(#glow)")
 
         // Add moodring image 
-        const moodRing = moodRingGroup
+        const moodRing = moodRingGroup.selectAll(".moodring")
+            .data([this.score])
+            .enter()
             .append("image")
             .attr("class", "moodring");
 
@@ -161,12 +172,35 @@ class CurrentMood {
             .attr("height", this.ringSize)
             .attr("xlink:href", path.join(__dirname, "./moodring.svg"))
 
-        const moodLegend = moodRingGroup.append("rect")
+        const moodLegend = moodRingGroup.selectAll("rect")
+            .data([this.score])
+            .enter()
+            .append("rect")
             .attr("x", -50)
             .attr("y", 45)
             .attr("width", 30)
             .attr("height", 400)
             .style("fill", "url(#grad1)");
+
+        const indicatorInterpolator = d3.scaleLinear()
+            .domain([1, -1])
+            .range([47, 445])
+
+        const trianglePath = "M -68 " + (indicatorInterpolator(this.score) - 7) + " l 14 6 l -14 6 z "
+
+        moodRingGroup.selectAll(".indicator")
+            .data([this.score])
+            .enter()
+            .append("path")
+            .attr("class", "indicator")       
+            .attr("stroke", "#a6a19c")
+            .attr("stroke-width", 3)
+            .attr("fill", "#a6a19c")
+
+        this.svg.selectAll(".indicator")
+            .transition()
+            .duration(2000)
+            .attr("d", trianglePath)
     }
 }
 

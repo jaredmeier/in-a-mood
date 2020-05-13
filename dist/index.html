@@ -8,18 +8,66 @@
     <link rel="stylesheet" href="./main.css" />
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://kit.fontawesome.com/e93199a89e.js" crossorigin="anonymous"></script>
-    <title>In a Mood</title>
+    <title>in a mood</title>
 </head>
 <body>
     <div id="root">
+        <div class="modal-background hidden">
+            <div class="modal-child">
+                <div class="about-modal">
+                    <h2>in a mood</h2>
+                    <button class="close-modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                        <div class="modal-text">
+                        <h3>
+                            What is this?
+                        </h3>
+                        <p>
+                            A simple app that answers one question: what's the current mood in New York City?
+                        </p>                        
+                        <h3>
+                            How does it work?
+                        </h3>
+                        <p>
+                            The “mood” is calculated by fetching the latest Tweets from the NYC area then passing them to the Google Cloud Natural Language API.
+                        </p>
+                        <br>
+                        <p>
+                            The Natural Language API returns a number representing the sentiment, from -1 (negative) to 1 (positive).
+                        </p>
+                        <br>
+                        <p>
+                            This number is then converted to a color based on a gradient scale and shown in the center of the mood ring. The outer mood ring color is random – to capture the true moodring spirit.
+                        </p>
+                        <h3>Limitations</h3>
+                        <p>Due to limitations in free usage of the Google API, each Tweet sample size is small. 
+                           Also, rather than analyzing the sentiment of each Tweet individually, the text is analyzed as an aggregate.
+                        </p>
+                        <br>
+                        <p>
+                            Analyzing the Tweets individually would be more accurate and would allow better usage of another value returned by the Language API, the magnitude, which measures the overall emotion present in the text. Using this value with individual analyses would allow ruling out emotionally neutral Tweets.
+                        </p>
+                        <br>
+                        <p>
+                            <b>Technologies: JavaScript, D3.js, Twitter API, Google Cloud Natural Language API, SQLite3, SVG</b>
+                        </p>
+                        <br>
+                        <p>
+                            <a href="https://github.com/jaredmeier/in-a-mood" target="_blank">See it on Github</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="header-container">
             <h1 class="title">in a mood</h1>
             <div class="header-links-container">
                 <div class="header-link"><a href="http://jaredmeier.com" target="_blank">by jared meier</a></div>
-                <div class="header-link"><a href="http://github.com/jaredmeier" target="_blank"><i class="fab fa-github"></i></a></div>
+                <div class="header-link"><a href="https://github.com/jaredmeier/in-a-mood" target="_blank"><i class="fab fa-github"></i></a></div>
                 <div class="header-link"><a href="https://www.linkedin.com/in/jar-m/" target="_blank""><i class="fab fa-linkedin-in"></i></a></div>
                 <div class="header-link"><a href="https://angel.co/u/jared-meier" target="_blank""><i class="fab fa-angellist"></i></a></div>
-                <div class="header-link"><a href="#"><i class="fas fa-question-circle"></i></i></a></div>
+                <div class="header-link"><button class="about-button"><i class="fas fa-question-circle"></i></button></div>
             </div>
             <div class="color-container">                
                 <button class="color-picker-button" type="submit" value="theme-1">
@@ -31,7 +79,13 @@
             </div>
         </div>
         <div id="current-mood-container">
-            <button class="refresh-mood"><i class="fas fa-sync-alt"></i></button>
+            <!-- <i class="mood-icon-pos far fa-grin-beam"></i>
+            <i class="mood-icon-neutral far fa-meh"></i>
+            <i class="mood-icon-neg far fa-frown"></i> -->
+            <button class="refresh-mood">
+                <i class="refresh-icon animate fas fa-sync-alt"></i>
+            </button>
+            <i class="refresh-hand animate far fa-hand-point-up"></i>
         </div>
         <div id="chart-container"></div>
         <div></div>

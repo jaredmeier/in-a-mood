@@ -41,7 +41,15 @@ h1 {
     color: var(--header-color);
     margin: 0;
     font-size: 4em;
+}
 
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.5em;
+    margin: 20px 0 10px;
 }
 
 @keyframes titlecolor {
@@ -133,6 +141,83 @@ h1 {
     transform: scale(1.1);
 }
 
+.refresh-icon {
+    transform: rotate(0);
+}
+
+@keyframes refreshspinidle {
+    0% { transform: rotate(0deg); }
+    // 25% { transform: rotate(180deg); }
+    33% { transform: rotate(360deg); }
+    75% { transform: rotate(360deg); }  
+    100% { transform: rotate(360deg); }
+}
+
+.refresh-icon.animate {
+    animation-delay: 2s;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-name: refreshspinidle;
+}
+
+@keyframes refreshspinload {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.refresh-icon.animate-loading {
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: refreshspinload;
+}
+
+.refresh-hand {
+    position: absolute;
+    left: 75%;
+    top: 57%;
+    font-size: 5vw;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    transform: translateY(0px);
+}
+
+@keyframes handbounce {
+    0% { transform: translateY(0px); }
+    15% { transform: translateY(-15px); }
+    33% { transform: translateY(0px); }
+    50% { transform: translateY(0px); }  
+    100% { transform: translateY(0px); }
+}
+
+.refresh-hand.animate {
+    animation-delay: 2s;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-name: handbounce;
+}
+
+.mood-icon-pos {
+    position: absolute;
+    left: -0.2%;
+    top: 10%;
+    font-size: 1vw;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.mood-icon-neutral {
+
+}
+
+.mood-icon-neg {
+
+}
+
 #chart-container {
     height: 100%;
     width: 100%;
@@ -164,10 +249,91 @@ circle.dot-mag {
 #current-mood-container {
     position: relative;
     width: 100%;
-    padding-top: 50px;
+    padding-top: 40px;
 }
 
 .moodring-svg {
     width: 100%;
 }
 
+.modal-background {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10;
+}
+
+.modal-child {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.about-modal {
+    min-width: 300px;
+    max-width: 500px;
+    max-height: 80vh;
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 1fr 1fr;
+    background-color: var(--bg-color);
+    padding: 25px 25px 40px;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    color: var(--header-color);
+}
+
+.about-modal h2, .modal-text {
+    grid-column: 1 / -1;
+}
+
+.about-modal h2 {
+    grid-row: 1 / 2;
+}
+
+.about-modal .modal-text {
+    grid-row: 2 / -1;
+}
+
+.about-modal p {
+    line-height: 1.5em;
+}
+
+.about-modal p:last-of-type {
+    padding-bottom: 40px;
+}
+
+.about-modal a {
+  text-decoration: underline;
+  color: var(--secondary-color);
+}
+
+.close-modal {
+    grid-row: 1 / 2;
+    grid-column: -1 / 2;
+    justify-self: end;
+    text-align: center;
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    background-color: transparent;
+    color: var(--header-color);
+    font-size: 2em;
+    border: 0;
+}
+
+.close-modal:hover {
+    color: black;
+    background-color: transparent;
+    border: 0;
+}
+
+.hidden {
+    display: none;
+}
