@@ -21,8 +21,8 @@ In a Mood was largely an exercise in using "vanilla" Javascript for a frontend-f
 The color scale and mood ring image use D3.js and a custom SVG graphic. While this does not make heavy use of D3.js in its current state (see Plans below), this was also a good exercise in learning the core functionality of D3.js and how it can map sets of data to something more visually interesting and then dynamically manipulate the DOM. 
 
 Because using both the Twitter API and the Google Natural Language API requires authorized credentials, I set up a simple Express server to handle these API requests.
-* Custom async requests between frontend and backend
 * Regex stripping of mentions and URLs from Tweets
+* Custom async requests from the frontend
 
 
 ## Limitations
