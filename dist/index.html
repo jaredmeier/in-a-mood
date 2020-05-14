@@ -36,25 +36,25 @@
                         </p>
                         <br>
                         <p>
-                            The Natural Language API returns a number representing the sentiment, from -1 (negative) to 1 (positive).
+                            The Language API analyzes the emotional sentiment of the text then returns a number from -1 (negative sentiment) to 1 (positive sentiment).
                         </p>
                         <br>
                         <p>
                             This number is then converted to a color based on a gradient scale and shown in the center of the mood ring. The outer mood ring color is random – to capture the true spirit of mood rings, of course.
                         </p>
                         <h3>Limitations</h3>
-                        <p>TL;DR This is less an accurate gauge of mood and more a technical demonstration of how it could be done.</p>
+                        <p>TL;DR This is less an accurate gauge of mood than it is a technical demonstration of how it could be done.</p>
                         <br>
-                        <p>Due to limitations in free usage of the Google API, each Tweet sample size is small. 
+                        <p>Due to limitations in free usage of the Language API, each Tweet sample size is small. 
                            Also, rather than analyzing the sentiment of each Tweet individually, the text is analyzed as an aggregate.
                         </p>
                         <br>
                         <p>
-                            Analyzing the Tweets individually would be more accurate and would allow better usage of another value returned by the Language API, the magnitude, which measures the overall emotion present in the text. Using this value with individual analyses would allow ruling out emotionally neutral Tweets.
+                            Analyzing the Tweets individually would be more accurate and would allow better usage of another value returned by the Language API, the magnitude, which measures the overall emotion present in the text. Using this value with individual analyses would allow ruling out Tweets with no clear emotion.
                         </p>
                         <br>
                         <p>
-                            <b>Technologies: JavaScript, D3.js, Twitter API, Google Cloud Natural Language API, SQLite3, SVG</b>
+                            <b>Technologies: JavaScript, D3.js, Twitter API, Google Cloud Natural Language API, SVG</b>
                         </p>
                         <br>
                         <p>
