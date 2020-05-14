@@ -12,11 +12,17 @@ This number is then converted to a color based on a gradient scale and shown in 
 
 
 ## Technologies
-JavaScript | D3.js | Twitter API | Google Cloud Natural Language API | SVG
+JavaScript | Express | D3.js | Twitter API | Google Cloud Natural Language API | SVG
 
-In a Mood was largely an exercise in using "vanilla" Javascript for a frontend-focused app. Because using both the Twitter API and the Google Natural Language API requires authorized credentials, I set up a simple Express server to handle these API requests.
+In a Mood was largely an exercise in using "vanilla" Javascript for a frontend-focused app. 
+* CSS variables for dynamic site-wide theme options
+* Javascript and CSS animations 
 
 The color scale and mood ring image use D3.js and a custom SVG graphic. While this does not make heavy use of D3.js in its current state (see Plans below), this was also a good exercise in learning the core functionality of D3.js and how it can map sets of data to something more visually interesting and then dynamically manipulate the DOM. 
+
+Because using both the Twitter API and the Google Natural Language API requires authorized credentials, I set up a simple Express server to handle these API requests.
+* Custom async requests between frontend and backend
+* Regex stripping of mentions and URLs from Tweets
 
 
 ## Limitations
