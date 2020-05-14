@@ -33,4 +33,5 @@ Due to limitations in free usage of the Language API, each Tweet sample size is 
 Analyzing the Tweets individually would be more accurate and would allow better usage of another value returned by the Language API, the magnitude, which measures the overall emotion present in the text. Using this value with individual analyses would allow ruling out Tweets with no clear emotion (e.g. spam).
 
 
-## Plans & Known Issues
+## Plans
+Original plans included persisting the received data to a lightweight database to have a record of the mood over time. This would make heavier (and more typical) use of D3.js by plotting the data for the last x days in a line chart. Hopefully this can be added soon! 
