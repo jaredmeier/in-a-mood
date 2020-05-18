@@ -40,10 +40,25 @@ class App {
             this.toggleModal();
         })
 
+        document.querySelector('.fa-dice').addEventListener('click', () => {
+            this.setRandomMood();
+        })
+
         window.addEventListener('resize', () => this.updateSizes());
 
         this.mood = new CurrentMood();
         // createChart();
+    }
+
+    setRandomMood() {
+        this.animateLoading();
+        this.updateMoodMessage("feeling random...");
+        setTimeout( () => {
+            const score = (Math.random() - 0.5) * 2;
+            this.mood.updateScore(score);
+            this.mood.updateMessage(this.convertScoreToText(score));
+            this.stopAnimateLoading();
+        }, 1500);
     }
 
     toggleModal() {
