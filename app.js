@@ -34,8 +34,8 @@ app.listen(port, () => {
 });
 
 function fetchTweets(res) {
-  params = "geocode=40.7128,-74.0060,2mi&count=100&tweet_mode=extended";
-  console.log(process.env.BEARER);
+  params = "geocode=40.7128,-74.0060,2mi&count=75&tweet_mode=extended&lang=en";
+  // console.log(process.env.BEARER);
   const options = {
       host: 'api.twitter.com',
       path: '/1.1/search/tweets.json?' + params,
@@ -67,7 +67,7 @@ function fetchTweets(res) {
 
 function fetchSentimentAnalysis(req, res) {
   let body = req.body;
-  console.log(`Body received: ${body}`);
+  // console.log(`Body received: ${body}`);
   console.log("Making sentiment analysis request");
   analyzeSentiment(body).then(sentiment => {
     console.log(sentiment);
@@ -83,6 +83,7 @@ async function analyzeSentiment(tweets) {
   const document = {
     content: tweets,
     type: 'PLAIN_TEXT',
+    language: "EN",
   };
 
   console.log(`Fetching sentiment for ${tweets}`);
